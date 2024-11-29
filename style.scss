@@ -1,0 +1,111 @@
+$base-color: #fdf0d5;
+$primary-color1: #003049;
+$primary-color2:  #669bbc;
+$accent-color1: #c1121f;
+$accent-color2: #780000;
+$primary-font: "Inter", sans-serif;
+
+h1, h2, h3, h4 ,p, button, span, div, textarea{
+ color: $primary-color1;
+ font-family: $primary-font;
+}
+
+h1{
+    font-size: 42px;
+    color: $accent-color1;
+    font-weight: 900;
+}
+h2{
+    font-size: 35px;
+    margin-top: 10px;
+    color: $accent-color1;
+    font-weight: 500;
+    margin-bottom: 20px
+}
+h3{
+    font-size: 29px;
+}
+h4{
+    font-size: 24px;
+}
+p{
+    font-size: 14px;
+}
+
+button{
+    background-color: $primary-color2;
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 10px;
+    color: white;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+}
+
+body {
+    background-color: $base-color
+}
+
+.tasks{
+    display: flex;
+    justify-content: space-around;
+
+    .enter-tasks-bin{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-width: 400px;
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        border: 1px solid $primary-color1;
+
+        input, textarea, select{
+        font-size: 14px;
+        margin-bottom: 20px;
+        line-height: 20px;
+        padding: 7px;
+        color:$primary-color1;
+        border-radius: 5px;
+        margin-top: 5px;
+        margin-left: 0px;
+        }
+
+        textarea{
+            font-size: 20px;
+
+        }
+    }
+
+    .display-tasks-bin{
+        min-width: 500px;
+        
+        fieldset{
+            border-radius: 5px;
+            font-weight: 500;
+        }
+        legend{
+            margin-left: 0px;
+            padding-left: 0px;
+            color:$accent-color1;
+        }
+
+        .display-task{
+            background-color: white;
+            .display-task-text{
+                font-weight: 700;
+                font-size: 20px;
+
+            }
+        .second-line{
+            display: flex;
+            justify-content: flex-end;
+            column-gap: 15px;
+            align-items: center;
+        }
+        }
+    }
+
+}
+
