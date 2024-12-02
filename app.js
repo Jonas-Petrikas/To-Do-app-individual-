@@ -3,13 +3,14 @@
 //Variables
 //
 
-const TASKS = []; //masyvas užduotims saugoti
+let TASKS = JSON.parse(localStorage.getItem('tasks')) || [] //masyvas užduotims saugoti
 let task = []; //masyvas konkrečiai užduočiai
-let savedHTML; //HTML užkrovimui iš local storage
-let DisplayTasksBin = document.querySelector('.display-tasks-bin');
+const DisplayTasksBin = document.querySelector('.display-tasks-bin');
 
 const enterBtn = document.querySelector('button.enter-btn');
-// const doneBtn = html.innerHTML.querySelector('button.display-btn-done');
+// const doneBtn = savedHTML.querySelector('button.display-btn-done');
+
+// console.log(doneBtn);
 
 //
 //Funtions & Methods
@@ -20,21 +21,31 @@ const TaskIDRandom = (min, max) =>{
         return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled);
     };
 
-const renderTaskListToHtml = (task)=>{
-    savedHTML +=`    <fieldset class="display-task">
+    // Render tasks to the HTML
+const renderTasks = ()=>{
+    DisplayTasksBin.innerHTML= "";
+    TASKS.forEach((task)=>{
+       DisplayTasksBin.innerHTML +=`
+                <fieldset class="display-task" data-id="${task.id}">
                     <legend class="display-priority">Priority: ${task.priority}</legend>
                     <div class="display-task-text"> ${task.text}</div>
-                    <div class="second-line"><div class="display-task-date"> ${task.date}</div>
-                    <button class="display-btn-done" value="${task.done}">done!</button>
-                    <button class="display-btn-delete">delete</button></div>
+                    <div class="second-line">
+                        <div class="display-task-date"> ${task.date}</div>
+                        <button class="display-btn-done" value="${task.done}">done!</button>
+                        <button class="display-btn-delete">delete</button>
+                    </div>
                 </fieldset>`;
+            });
+};
+// Save tasks to localStorage
+const saveTasks = () => {
+    localStorage.setItem('tasks', JSON.stringify(TASKS));
 };
 
-const init = _ =>{
-    savedHTML = localStorage.getItem('html') || '';
-    DisplayTasksBin.innerHTML = savedHTML;
+// Initialize tasks from localStorage
+const init = () => {
+    renderTasks();
 };
-
 
 //
 //Inits & Event Listeners
@@ -43,26 +54,28 @@ init();
 
 enterBtn.addEventListener ('click', _ =>{
     if(document.querySelector('.enter-text').value !==''){
-        task.id = TaskIDRandom(1000000,99999999);
-        task.text = (document.querySelector('.enter-text').value);
-        task.date = (document.querySelector('.enter-date').value);
-        task.done = 1;
-        task.priority = (document.querySelector('.enter-priority').value);
-        console.log(task);
-        renderTaskListToHtml(task);
-        localStorage.setItem("html", savedHTML);
-        init();
-    }
+        const textInput = document.querySelector('.enter-text');
+        const dateInput = document.querySelector('.enter-date');
+        const priorityInput = document.querySelector('.enter-priority');
 
+        const newTask = {
+            id: TaskIDRandom(1000000,99999999),
+            date: dateInput.value || 'No date',
+            text: textInput.value,
+            priority: priorityInput.value || 'Normal',
+            done: false,
+        };
+
+        TASKS.unshift(newTask); // Add new task to the array
+        saveTasks(); // Save to localStorage
+        renderTasks(); // Update the UI
+
+        textInput.value = ''; // Clear input field
+    }
 });
 
-// doneBtn.addEventListener('click', _ =>{
-//     console.log('atlikta');
-//     });
 
 
-
-console.log(savedHTML);
 
 
 

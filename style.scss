@@ -63,6 +63,7 @@ body {
         flex-direction: column;
         justify-content: center;
         min-width: 350px;
+        max-width: 500px;
         background-color: white;
         padding: 20px;
         border-radius: 5px;
@@ -90,7 +91,7 @@ body {
 
     .display-tasks-bin{
         min-width: 350px;
-        max-width: 500px;
+        max-width: 700px;
         
         fieldset{
             border-radius: 5px;
